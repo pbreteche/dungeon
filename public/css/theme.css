@@ -1,0 +1,9 @@
+#character-life::-moz-progress-bar,
+#character-life::-webkit-progress-bar {
+  background-color: red;
+}
+
+#character-energy::-moz-progress-bar,
+#character-energy::-webkit-progress-bar{
+  background-color: deepskyblue;
+}

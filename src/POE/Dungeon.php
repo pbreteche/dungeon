@@ -14,7 +14,7 @@ class Dungeon
          */
         $loader = new CharacterLoader();
 
-        $character = $loader->load();
+        $character = $loader->load(1);
 
         /**
          * Démarrage d'un tampon de sortie
