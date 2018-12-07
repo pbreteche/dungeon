@@ -3,14 +3,8 @@
 namespace POE\database;
 
 
-class CharacterManager
+class CharacterManager extends CharacterConnection
 {
-    private $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection->getConnection();
-    }
 
     public function save(Character $character)
     {

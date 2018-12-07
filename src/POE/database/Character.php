@@ -140,5 +140,13 @@ class Character
         $this->defense = $defense;
     }
 
+    public function wound(int $amount): void
+    {
+        $this->life_current -= $amount;
+        if (0 > $this->life_current) {
+            throw new \Exception("Aaaaaargh");
+        }
+    }
+
 
 }

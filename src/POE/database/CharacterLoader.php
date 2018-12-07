@@ -2,23 +2,8 @@
 
 namespace POE\database;
 
-class CharacterLoader
+class CharacterLoader extends CharacterConnection
 {
-    private $connection;
-
-    /**
-     * CharacterLoader constructor.
-     *
-     * @param \POE\database\Connection $connection
-     *
-     * Attention, le nommage est mauvais, on a deux objets différents
-     * qui s'appellent connection
-     */
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection->getConnection();
-    }
-
     public function load(int $id): Character
     {
 
