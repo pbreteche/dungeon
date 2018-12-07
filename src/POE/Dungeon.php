@@ -2,17 +2,51 @@
 
 namespace POE;
 
+use POE\database\CharacterFactory;
 use POE\database\CharacterLoader;
+use POE\database\CharacterManager;
+use POE\database\Connection;
 
 class Dungeon
 {
+
+    public function createCharacter()
+    {
+        /**
+         * Si la méthode HTTP est «POST», alors le client essaye de transmettre
+         * les données du formulaire. Quand il veut juste l'affichage du formulaire,
+         * il requête avec «GET»
+         */
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!isset($_POST['type']) || !in_array($_POST['type'], ['warrior', 'thief', 'wizard'])) {
+                // gestion de l'erreur
+            }
+
+            /**
+             * On délègue à la notre fabrique de personnage tout le savoir faire
+             * pour créer un nouveau personnage à partir d'un type et d'un nom
+             */
+            $factory = new CharacterFactory();
+            $character = $factory->generate($_POST['name'], $_POST['type']);
+
+            $manager = new CharacterManager(new Connection());
+            $manager->save($character);
+        }
+
+        ob_start();
+        include __DIR__ . '/../../template/createCharacter.html.php' ;
+        $output = ob_get_clean();
+
+        return $output;
+    }
+
     public function reportSituation()
     {
         /**
          * On passe par un objet intermédiaire pour récupérer notre personnage
-         * par anticipation avec le fait qu'il viendra de la base de données
+         * Pour fonctionner, le chargeur a besoin d'une connexion à la base de données
          */
-        $loader = new CharacterLoader();
+        $loader = new CharacterLoader(new Connection());
 
         $character = $loader->load(1);
 

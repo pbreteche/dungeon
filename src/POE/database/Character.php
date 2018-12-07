@@ -37,11 +37,27 @@ class Character
     }
 
     /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return mixed
      */
     public function getMaxLife()
     {
         return $this->life_max;
+    }
+
+    /**
+     * @param mixed $life_max
+     */
+    public function setMaxLife($life_max): void
+    {
+        $this->life_max = $life_max;
     }
 
     /**
@@ -53,11 +69,27 @@ class Character
     }
 
     /**
+     * @param mixed $life_current
+     */
+    public function setCurrentLife($life_current): void
+    {
+        $this->life_current = $life_current;
+    }
+
+    /**
      * @return mixed
      */
     public function getMaxEnergy()
     {
         return $this->energy_max;
+    }
+
+    /**
+     * @param mixed $energy_max
+     */
+    public function setMaxEnergy($energy_max): void
+    {
+        $this->energy_max = $energy_max;
     }
 
     /**
@@ -69,11 +101,27 @@ class Character
     }
 
     /**
+     * @param mixed $energy_current
+     */
+    public function setCurrentEnergy($energy_current): void
+    {
+        $this->energy_current = $energy_current;
+    }
+
+    /**
      * @return mixed
      */
     public function getAttack()
     {
         return $this->attack;
+    }
+
+    /**
+     * @param mixed $attack
+     */
+    public function setAttack($attack): void
+    {
+        $this->attack = $attack;
     }
 
     /**
@@ -84,6 +132,13 @@ class Character
         return $this->defense;
     }
 
+    /**
+     * @param mixed $defense
+     */
+    public function setDefense($defense): void
+    {
+        $this->defense = $defense;
+    }
 
 
 }
