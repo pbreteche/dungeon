@@ -27,7 +27,7 @@ class CharacterManager
         $statement->bindValue('ecur', $character->getCurrentEnergy());
         $statement->bindValue('def', $character->getDefense());
         $statement->bindValue('att', $character->getAttack());
-        
+
         try {
             $statement->execute();
         }
