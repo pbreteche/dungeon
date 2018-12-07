@@ -2,7 +2,7 @@
 
 namespace POE\database;
 
-class CharacterLoader extends CharacterConnection
+class CharacterLoader extends Connection
 {
     public function load(int $id): Character
     {

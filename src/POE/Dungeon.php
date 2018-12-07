@@ -49,7 +49,7 @@ class Dungeon
             $factory = new CharacterFactory();
             $character = $factory->generate($_POST['name'], $_POST['type']);
 
-            $manager = new CharacterManager(new Connection());
+            $manager = new CharacterManager();
             $manager->save($character);
         }
 
@@ -63,7 +63,7 @@ class Dungeon
          * On passe par un objet intermédiaire pour récupérer notre personnage
          * Pour fonctionner, le chargeur a besoin d'une connexion à la base de données
          */
-        $loader = new CharacterLoader(new Connection());
+        $loader = new CharacterLoader();
 
         $character = $loader->load(1);
 
