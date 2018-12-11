@@ -1,0 +1,13 @@
+{
+    "name": "poe/dungeon",
+    "description": "Un super jeu avec de la bagarre",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pierre Bretéché",
+            "email": "pbreteche@dawan.fr"
+        }
+    ],
+    "require": {}
+}
