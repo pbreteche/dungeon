@@ -9,5 +9,12 @@
             "email": "pbreteche@dawan.fr"
         }
     ],
-    "require": {}
+    "autoload": {
+        "psr-4": {
+            "POE\\": "src/"
+        }
+    },
+    "require": {
+        "monolog/monolog": "^1.24"
+    }
 }

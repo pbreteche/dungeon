@@ -85,7 +85,7 @@ class Dungeon
          * Dans la vraie vie, on utilise un vrai moteur de template (Twig, Smarty, autre...)
          */
         ob_start();
-        include __DIR__ . '/../../template/' . $filename . '.html.php' ;
+        include __DIR__ . '/../template/' . $filename . '.html.php' ;
         /**
          * Après avoir écrit le document (capturé dans le tampon de sortie),
          * on décide de le faire redescendre dans une variable PHP et on nettoie
