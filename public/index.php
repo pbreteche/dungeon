@@ -4,6 +4,12 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $dungeon = new POE\Dungeon();
 
+$logger = new \Monolog\Logger('main');
+$handlers = [new \Monolog\Handler\StreamHandler(__DIR__ . '/../test.log')];
+$logger->setHandlers($handlers);
+
+$logger->info('démarrage de l\'application');
+
 /**
  * on décide de définir dans un tableau associatif la liste des
  * pages gérées par l'application
