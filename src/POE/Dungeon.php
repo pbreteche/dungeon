@@ -6,14 +6,13 @@ use POE\brawl\Ring;
 use POE\database\CharacterFactory;
 use POE\database\CharacterLoader;
 use POE\database\CharacterManager;
-use POE\database\Connection;
 
 class Dungeon
 {
 
     public function brawl()
     {
-        $loader = new CharacterLoader(new Connection());
+        $loader = new CharacterLoader();
 
         /**
          * chargement des protagonistes depuis la base

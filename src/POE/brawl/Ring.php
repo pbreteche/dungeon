@@ -12,10 +12,19 @@ class Ring
 
     private $defender;
 
+    private $thrower;
+
+    /**
+     * @var \POE\brawl\FightLog
+     */
+    private $fightLog;
+
     public function __construct(Character $attacker, Character $defender)
     {
         $this->attacker = $attacker;
         $this->defender = $defender;
+
+        $this->thrower = new DiceThrower();
     }
 
     public function fight()
@@ -24,7 +33,7 @@ class Ring
          * un tableau pour faire notre compte rendu et ajouter chaque
          * action qui s'est déroulée dans le combat
          */
-        $report = [];
+        $this->fightLog = new FightLog();
 
         /**
          * un combat se déroule en plusieurs tours
@@ -34,16 +43,32 @@ class Ring
          */
         try {
             while (true) {
-                $this->defender->wound(20);
-                $report[] = $this->attacker->getName() . ' frappe ' . $this->defender->getName();
-                $this->attacker->wound(20);
-                $report[] = $this->defender->getName() . ' frappe ' . $this->attacker->getName();
+                $this->strike($this->attacker, $this->defender);
+                $this->strike($this->defender, $this->attacker);
             }
         }
         catch(\Exception $exception) {
 
 
         }
-        return $report;
+        return $this->fightLog;
+    }
+
+    private function strike (Character $attacker, Character $defender)
+    {
+        $touchThreshold = $attacker->getAttack() / ($attacker->getAttack() + $defender->getDefense()) * 100;
+
+        $this->fightLog->append($attacker->getName() . ' attaque ' . $defender->getName() . '(' . floor($touchThreshold) . '%)');
+
+        $score = $this->thrower->throwDice(100);
+
+        if ($touchThreshold > $score) {
+            $this->defender->wound(20);
+            $this->fightLog->append('-- touché! (' . $score . ') reste ' . $defender->getCurrentLife());
+        }
+        else {
+            $this->fightLog->append('-- raté! (' . $score . ') reste ' . $defender->getCurrentLife());
+        }
+
     }
 }
