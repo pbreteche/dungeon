@@ -2,18 +2,20 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dungeon = new POE\Dungeon();
-
 $logger = new \Monolog\Logger('main');
 $handlers = [new \Monolog\Handler\StreamHandler(__DIR__ . '/../test.log')];
 $logger->setHandlers($handlers);
 
 $logger->info('démarrage de l\'application');
 
+require __DIR__ . '/../src/bootstrap.php';
+
+$dungeon = new POE\Dungeon($entityManager);
+
 /**
  * on décide de définir dans un tableau associatif la liste des
  * pages gérées par l'application
- * La clé représente le chemin d'URL et la valeur est le nom de la éthode à exécuter
+ * La clé représente le chemin d'URL et la valeur est le nom de la méthode à exécuter
  */
 $pages = [
     '/jeu/situation' => 'reportSituation',

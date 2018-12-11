@@ -3,7 +3,7 @@
 namespace POE\brawl;
 
 
-use POE\database\Character;
+use POE\entity\Character;
 
 class Ring
 {

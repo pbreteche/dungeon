@@ -3,6 +3,8 @@
 namespace POE\database;
 
 
+use POE\entity\Character;
+
 class CharacterFactory
 {
     const TYPES = [

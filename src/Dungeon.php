@@ -2,23 +2,33 @@
 
 namespace POE;
 
+use Doctrine\ORM\EntityManager;
 use POE\brawl\Ring;
 use POE\database\CharacterFactory;
 use POE\database\CharacterLoader;
 use POE\database\CharacterManager;
+use POE\entity\Character;
 
 class Dungeon
 {
 
+    /**
+     * @var EntityManager
+     */
+    private $manager;
+
+    public function __construct(EntityManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     public function brawl()
     {
-        $loader = new CharacterLoader();
-
         /**
          * chargement des protagonistes depuis la base
          */
-        $attacker = $loader->load(1);
-        $defender = $loader->load(2);
+        $attacker = $this->manager->find(Character::class, 1);
+        $defender = $this->manager->find(Character::class, 2);
 
         /**
          * gestion de la scène de combat
@@ -48,8 +58,8 @@ class Dungeon
             $factory = new CharacterFactory();
             $character = $factory->generate($_POST['name'], $_POST['type']);
 
-            $manager = new CharacterManager();
-            $manager->save($character);
+            $this->manager->persist($character);
+            $this->manager->flush();
         }
 
 
@@ -58,13 +68,7 @@ class Dungeon
 
     public function reportSituation()
     {
-        /**
-         * On passe par un objet intermédiaire pour récupérer notre personnage
-         * Pour fonctionner, le chargeur a besoin d'une connexion à la base de données
-         */
-        $loader = new CharacterLoader();
-
-        $character = $loader->load(1);
+        $character = $this->manager->find(Character::class, 1);
 
         return $this->render('reportSituation', ['character' => $character]);
     }

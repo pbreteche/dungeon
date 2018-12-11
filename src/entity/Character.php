@@ -1,23 +1,77 @@
 <?php
 
-namespace POE\database;
+namespace POE\entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Character
+ *
+ * @ORM\Entity()
+ * @ORM\Table(name="characters")
+ */
 class Character
 {
+
+    /*
+     * Commentaires non interprétés
+     */
+    /**
+     * l'identifiant en base de données
+     *
+     * @var int
+     *
+     * @ORM\Id()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue()
+     */
     private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     private $name;
 
-    private $life_max;
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", name="life_max")
+     */
+    private $maxLife;
 
-    private $life_current;
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", name="life_current")
+     */
+    private $currentLife;
 
-    private $energy_max;
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", name="energy_max")
+     */
+    private $maxEnergy;
 
-    private $energy_current;
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", name="energy_current")
+     */
+    private $currentEnergy;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
     private $attack;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
     private $defense;
 
     /**
@@ -49,7 +103,7 @@ class Character
      */
     public function getMaxLife()
     {
-        return $this->life_max;
+        return $this->maxLife;
     }
 
     /**
@@ -57,7 +111,7 @@ class Character
      */
     public function setMaxLife($life_max): void
     {
-        $this->life_max = $life_max;
+        $this->maxLife = $life_max;
     }
 
     /**
@@ -65,7 +119,7 @@ class Character
      */
     public function getCurrentLife()
     {
-        return $this->life_current;
+        return $this->currentLife;
     }
 
     /**
@@ -73,7 +127,7 @@ class Character
      */
     public function setCurrentLife($life_current): void
     {
-        $this->life_current = $life_current;
+        $this->currentLife = $life_current;
     }
 
     /**
@@ -81,7 +135,7 @@ class Character
      */
     public function getMaxEnergy()
     {
-        return $this->energy_max;
+        return $this->maxEnergy;
     }
 
     /**
@@ -89,7 +143,7 @@ class Character
      */
     public function setMaxEnergy($energy_max): void
     {
-        $this->energy_max = $energy_max;
+        $this->maxEnergy = $energy_max;
     }
 
     /**
@@ -97,7 +151,7 @@ class Character
      */
     public function getCurrentEnergy()
     {
-        return $this->energy_current;
+        return $this->currentEnergy;
     }
 
     /**
@@ -105,7 +159,7 @@ class Character
      */
     public function setCurrentEnergy($energy_current): void
     {
-        $this->energy_current = $energy_current;
+        $this->currentEnergy = $energy_current;
     }
 
     /**
@@ -142,8 +196,8 @@ class Character
 
     public function wound(int $amount): void
     {
-        $this->life_current -= $amount;
-        if (0 > $this->life_current) {
+        $this->currentLife -= $amount;
+        if (0 > $this->currentLife) {
             throw new \Exception("Aaaaaargh");
         }
     }
