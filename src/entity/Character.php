@@ -202,9 +202,9 @@ class Character
         }
     }
 
-    public function toJson(): string
+    public function toArray(): array
     {
-        return json_encode([
+        return [
             'name' => $this->name,
             'currentLife' => $this->currentLife,
             'maxLife' => $this->maxLife,
@@ -212,6 +212,6 @@ class Character
             'maxEnergy' => $this->maxEnergy,
             'attack' => $this->attack,
             'defense' => $this->defense,
-        ]);
+        ];
     }
 }

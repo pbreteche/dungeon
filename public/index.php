@@ -19,6 +19,7 @@ $dungeon = new POE\Dungeon($entityManager);
  */
 $pages = [
     '/api/situation' => 'getCharacter',
+    '/api/characters' => 'getCharacters',
     '/jeu/situation' => 'reportSituation',
     '/jeu/bagarre' => 'brawl',
     '/creation-personnage' => 'createCharacter',

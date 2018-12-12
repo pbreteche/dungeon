@@ -71,9 +71,26 @@ class Dungeon
      */
     public function getCharacter()
     {
-        header('Content-Type: application/json');
         $character = $this->manager->find(Character::class, 1);
-        return $character->toJson();
+
+        header('Content-Type: application/json');
+        return json_encode($character->toArray());
+    }
+
+    /**
+     * la donnée pour l'affichage en AJAX, au format JSON
+     */
+    public function getCharacters()
+    {
+        $characters = $this->manager->getRepository(Character::class)->findAll();
+
+        $charactersAsArray = array_map(
+            function($elt) { return $elt->toArray();},
+            $characters
+        );
+
+        header('Content-Type: application/json');
+        return json_encode($charactersAsArray);
     }
 
     /**
