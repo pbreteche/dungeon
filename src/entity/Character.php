@@ -202,5 +202,16 @@ class Character
         }
     }
 
-
+    public function toJson(): string
+    {
+        return json_encode([
+            'name' => $this->name,
+            'currentLife' => $this->currentLife,
+            'maxLife' => $this->maxLife,
+            'currentEnergy' => $this->currentEnergy,
+            'maxEnergy' => $this->maxEnergy,
+            'attack' => $this->attack,
+            'defense' => $this->defense,
+        ]);
+    }
 }

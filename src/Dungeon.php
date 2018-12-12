@@ -5,8 +5,6 @@ namespace POE;
 use Doctrine\ORM\EntityManager;
 use POE\brawl\Ring;
 use POE\database\CharacterFactory;
-use POE\database\CharacterLoader;
-use POE\database\CharacterManager;
 use POE\entity\Character;
 
 class Dungeon
@@ -29,6 +27,8 @@ class Dungeon
          */
         $attacker = $this->manager->find(Character::class, 1);
         $defender = $this->manager->find(Character::class, 2);
+
+        $this->manager->getRepository(Character::class)->findAll();
 
         /**
          * gestion de la scène de combat
@@ -66,11 +66,25 @@ class Dungeon
         return $this->render('createCharacter', []);
     }
 
+    /**
+     * la donnée pour l'affichage en AJAX, au format JSON
+     */
+    public function getCharacter()
+    {
+        header('Content-Type: application/json');
+        $character = $this->manager->find(Character::class, 1);
+        return $character->toJson();
+    }
+
+    /**
+     * La méthode qui affiche le HTML de base pour la fiche du personnage
+     * Les données sont chargées en AJAX
+     *
+     * @return false|string
+     */
     public function reportSituation()
     {
-        $character = $this->manager->find(Character::class, 1);
-
-        return $this->render('reportSituation', ['character' => $character]);
+        return $this->render('reportSituation', []);
     }
 
     private function render(string $filename, array $data)

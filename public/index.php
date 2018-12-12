@@ -18,6 +18,7 @@ $dungeon = new POE\Dungeon($entityManager);
  * La clé représente le chemin d'URL et la valeur est le nom de la méthode à exécuter
  */
 $pages = [
+    '/api/situation' => 'getCharacter',
     '/jeu/situation' => 'reportSituation',
     '/jeu/bagarre' => 'brawl',
     '/creation-personnage' => 'createCharacter',
