@@ -71,6 +71,10 @@ class Dungeon
      */
     public function getCharacter()
     {
+        if ('GET' !== $_SERVER['REQUEST_METHOD']) {
+            http_response_code(405);
+            return '<h1>vilain tricheur</h1>';
+        }
         $character = $this->manager->find(Character::class, 1);
 
         header('Content-Type: application/json');

@@ -8,25 +8,32 @@
     <title>Dungeon</title>
 </head>
 <body>
-    
-    <h1> <?= $character->getName() ?> </h1>
 
-    <div>Point de vie:
-        <progress id="character-life" max="<?= $character->getMaxLife()?>" value="<?= $character->getCurrentLife()?>">
-            <?= $character->getCurrentLife()?> /  <?= $character->getMaxLife()?> PV
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        const body = document.querySelector('body');
+
+        fetch('/api/situation')
+                .then(response => response.json())
+                .then((data) => {
+                    body.innerHTML = `
+                    <h1>${data.name}</h1>
+<div>Point de vie:
+        <progress id="character-energy" max="${data.maxLife}" value="${data.currentLife}">
+            ${data.currentLife} /  ${data.maxLife} Mana
         </progress>
     </div>
-
-
-    <div>Énergie:
-        <progress id="character-energy" max="<?= $character->getMaxEnergy()?>" value="<?= $character->getCurrentEnergy()?>">
-            <?= $character->getCurrentEnergy()?> /  <?= $character->getMaxEnergy()?> Mana
+<div>Énergie:
+        <progress id="character-energy" max="${data.maxEnergy}" value="${data.currentEnergy}">
+            ${data.currentEnergy} /  ${data.maxEnergy} Mana
         </progress>
     </div>
-
-    <div>Combat:
-        attaque: <?= $character->getAttack()?>
-        défense: <?= $character->getDefense()?>
-    </div>
+<div>Combat:
+        attaque: ${data.attack}
+        défense: ${data.defense}
+    </div>`
+                })
+    })
+</script>
 </body>
 </html>
