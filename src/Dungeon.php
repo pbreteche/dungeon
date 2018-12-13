@@ -26,7 +26,7 @@ class Dungeon
          * chargement des protagonistes depuis la base
          */
         $attacker = $this->manager->find(Character::class, 1);
-        $defender = $this->manager->find(Character::class, 2);
+        $defender = $this->manager->find(Character::class, 7);
 
         $this->manager->getRepository(Character::class)->findAll();
 
@@ -51,6 +51,16 @@ class Dungeon
                 // gestion de l'erreur
             }
 
+            $tokenExpired = time() > $_SESSION['csrf_token']['expire'];
+            $tokenInvalid = $_POST['csrf_token'] !== $_SESSION['csrf_token']['value'];
+
+            if (!isset($_POST['csrf_token']) || $tokenExpired || $tokenInvalid) {
+                //gestion de l'erreur
+                // message de debug
+                echo '<h1>violation du jeton de synchronisation</h1>';
+                die;
+            }
+
             /**
              * On délègue à la notre fabrique de personnage tout le savoir faire
              * pour créer un nouveau personnage à partir d'un type et d'un nom
@@ -62,8 +72,19 @@ class Dungeon
             $this->manager->flush();
         }
 
+        /**
+         * génération d'un nombre pseudo aléatoire sécurisé
+         * afin de synchroniser nos envois de formulaire par utilisateur
+         */
+        $binaryToken = openssl_random_pseudo_bytes(64);
+        $token = base64_encode($binaryToken);
 
-        return $this->render('createCharacter', []);
+        $_SESSION['csrf_token'] = [
+            'value' => $token,
+            'expire' => time() + 300, // on gère une date d'expiration avec 5 minutes de validité
+        ];
+
+        return $this->render('createCharacter', ['csrf_token' => $token]);
     }
 
     /**
@@ -75,7 +96,7 @@ class Dungeon
             http_response_code(405);
             return '<h1>vilain tricheur</h1>';
         }
-        $character = $this->manager->find(Character::class, 1);
+        $character = $this->manager->find(Character::class, 7);
 
         header('Content-Type: application/json');
         return json_encode($character->toArray());

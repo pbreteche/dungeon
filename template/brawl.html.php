@@ -10,7 +10,7 @@
 <body>
 <ul>
     <?php foreach ($fightReport as $action): ?>
-        <li><?= $action ?></li>
+        <li><?= htmlspecialchars($action) ?></li>
     <?php endforeach; ?>
 </ul>
 </body>

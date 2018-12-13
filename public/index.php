@@ -2,6 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+session_start();
+
 $logger = new \Monolog\Logger('main');
 $handlers = [new \Monolog\Handler\StreamHandler(__DIR__ . '/../test.log')];
 $logger->setHandlers($handlers);
